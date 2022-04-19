@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . "/app/abstractClasses/TodoList.php";
+require_once __DIR__ . "/../abstractClasses/TodoListManager.php";
 
-class Todo extends TodoList
+class Todo extends TodoListManager
 {
   public function __construct(array $data = null)
   {

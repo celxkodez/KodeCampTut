@@ -4,21 +4,31 @@ trait JsonManipulatorTrait
 {
   private $fileDirectory;
 
-  public function save(array $data)
+  public function save(array $data, $table = "todos")
   {
     try {
-      $existingItems = $this->get();
-      $data = array_merge($existingItems, $data);
+      $existingItems = $this->get($table);
+      // die(var_dump($existingItems));
+      $existingItems = $existingItems === null ? [] : $existingItems;
+      // die(var_dump($existingItems));
+      $existingItems = is_array($existingItems) ? $existingItems : [$existingItems];
+      // die(var_dump($existingItems));
+      $existingItems[] = $data;
+      $data = [
+        $table => $existingItems
+      ];
+      // die(var_dump($data));
       return file_put_contents($this->fileDirectory, json_encode($data));
     } catch (\Exception $e) {
       die($e->getMessage());
     }
   }
 
-  public function get()
+  public function get($table)
   {
     try {
-      return (array)  json_decode(file_get_contents($this->fileDirectory));
+      $item =  (array)  json_decode(file_get_contents($this->fileDirectory));
+      return is_array($item[$table]) ? $item[$table] : ($item[$table] === null ? [] : [$item[$table]]);
     } catch (\Exception $e) {
       die($e->getMessage());
     }
