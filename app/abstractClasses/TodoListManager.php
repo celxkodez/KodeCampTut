@@ -1,6 +1,10 @@
 <?php
 
+namespace App\AbstractClasses;
+
 require_once __DIR__ . "/../traits/JsonManipulatorTraits.php";
+
+use App\Traits\JsonManipulatorTrait;
 
 abstract class TodoListManager
 {

@@ -1,14 +1,16 @@
 <?php
 
 require_once __DIR__ . "/app/classes/Todo.php";
+require_once __DIR__ . "/app/database/Query.php";
+
+use App\Classes\Todo;
+use App\Database\Query;
 
 $todo = new Todo();
 $todos = $todo->getTodos();
-
-// die(var_dump($todos));
+$query = new Query();
 
 if (isset($_POST) && count($_POST) > 0) {
-  // die(var_dump($_POST));
   $errors = [];
   $validatedFeilds = [
     'title',
@@ -20,7 +22,8 @@ if (isset($_POST) && count($_POST) > 0) {
   }
 
   if (count($errors) < 1) {
-    new Todo($_POST);
+    $query->execute("INSERT INTO todos (title) VALUES('{$_POST['title']}')");
+    // new Todo($_POST);
   }
 
   // die(var_dump($errors));
@@ -140,7 +143,7 @@ if (isset($_POST) && count($_POST) > 0) {
       <?php endforeach; ?>
     </ul>
   </form>
-  <small>Left click to toggle completed <br> Right click to delete todo</small>
+  <!-- <small>Left click to toggle completed <br> Right click to delete todo</small> -->
 
   <script>
     // const form = document.getElementById("form");

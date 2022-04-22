@@ -1,6 +1,10 @@
 <?php
 
+namespace App\Classes;
+
 require_once __DIR__ . "/../abstractClasses/TodoListManager.php";
+
+use App\AbstractClasses\TodoListManager;
 
 class Todo extends TodoListManager
 {
