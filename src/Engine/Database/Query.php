@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Database;
-
-require_once __DIR__ . "/../database/Connection.php";
+namespace App\Engine\Database;
 
 class Query
 {
@@ -26,8 +24,14 @@ class Query
     $this->connection->exec($query);
   }
 
+  public function query($query)
+  {
+    $data = $this->connection->query($query);
+    return $data->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
   public function __destruct()
   {
-    $this->connection->close();
+    // $this->connection->close();
   }
 }
