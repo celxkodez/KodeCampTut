@@ -96,8 +96,11 @@
 
 <body>
 
-  <h1>Welcome <?= $user['name'] ?></h1>
-
+  <?php if (isset($user['name'])) { ?>
+    <h1>Welcome <?= $user['name'] ?></h1>
+  <?php } else { ?>
+    <h1>Visit The Login Page to Login</h1>
+  <?php } ?>
 
 </body>
 

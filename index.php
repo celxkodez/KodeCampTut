@@ -3,6 +3,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Engine\Classes\Todo;
 use App\Engine\Database\Query;
+use Josantonius\Session\Session;
 
 $todo = new Todo();
 $query = new Query();
@@ -26,5 +27,9 @@ if (isset($_POST) && count($_POST) > 0) {
 
   // die(var_dump($errors));
 }
+
+Session::init();
+
+$user = Session::get()['jst_user'];
 
 require_once "src/resources/views/index.php";

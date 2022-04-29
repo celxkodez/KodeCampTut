@@ -2,6 +2,8 @@
 
 namespace App\Engine\Classes;
 
+use Josantonius\Session\Session;
+
 class Auth
 {
   protected $data = [];
@@ -16,21 +18,25 @@ class Auth
   {
     $this->isLoggedIn = true;
     if (password_verify($password, $this->data['password'])) {
-      session_start();
-      $_SESSION['user'] = $this->data;
+
+      Session::init();
+      Session::set('user', $this->data);
+
       return true;
     }
     return false;
   }
 
-  public function logout()
+  public static function logout()
   {
-    $this->isLoggedIn = false;
-    session_destroy();
+    Session::init();
+    Session::set('user', null);
+    Session::destroy();
   }
 
   public static function check()
   {
-    return isset($_SESSION['user']);
+    $value = Session::get();
+    return !is_null($value) && !is_null(Session::get('user'));
   }
 }

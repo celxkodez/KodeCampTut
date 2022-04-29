@@ -1,5 +1,8 @@
 <?php
-session_start();
-session_destroy();
-session_abort();
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use App\Engine\Classes\Auth;
+
+Auth::logout();
 header("Location: /login.php");

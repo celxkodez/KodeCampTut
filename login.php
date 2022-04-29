@@ -9,7 +9,7 @@ if (isset($_POST['email']) & isset($_POST['password'])) {
 
   $user = $query->query("SELECT * FROM users WHERE email='{$_POST['email']}'")[0];
 
-  // die(var_dump((new Auth($user))->attempt($_POST['password'])));
+  (new Auth($user))->attempt($_POST['password']);
 
   header('Location: /dashboard.php');
 }
