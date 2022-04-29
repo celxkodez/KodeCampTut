@@ -95,91 +95,10 @@
 </head>
 
 <body>
-  <h1>todos</h1>
-  <form id="form" action="" method="POST">
-    <input type="text" name="title" class="input" id="input" placeholder="Enter your todo" autocomplete="off">
-    <button type="submit" class="add-button">Add New</button>
 
-    <ul class="todos" id="todos">
-      <?php foreach ($todos as $todo) : ?>
+  <h1>Welcome <?= $user['name'] ?></h1>
 
-        <li class="completed">
-          <a href="/markcompleted.php?id=<?= $todo['id'] ?>">
-            <?= $todo['title'] ?>
-          </a>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-  </form>
-  <!-- <small>Left click to toggle completed <br> Right click to delete todo</small> -->
 
-  <script>
-    // const form = document.getElementById("form");
-    // const input = document.getElementById("input");
-    // const todosUL = document.getElementById("todos");
-
-    // const todos = JSON.parse(localStorage.getItem("todos"));
-
-    // if (todos) {
-    //   todos.forEach((todo) => addTodo(todo));
-    // }
-
-    // form.addEventListener("submit", (e) => {
-    //   e.preventDefault();
-
-    //   addTodo();
-    // });
-
-    // function addTodo(todo) {
-    //   let todoText = input.value;
-
-    //   if (todo) {
-    //     todoText = todo.text;
-    //   }
-
-    //   if (todoText) {
-    //     const todoEl = document.createElement("li");
-    //     if (todo && todo.completed) {
-    //       todoEl.classList.add("completed");
-    //     }
-
-    //     todoEl.innerText = todoText;
-
-    //     todoEl.addEventListener("click", () => {
-    //       todoEl.classList.toggle("completed");
-    //       updateLS();
-    //     });
-
-    //     todoEl.addEventListener("contextmenu", (e) => {
-    //       e.preventDefault();
-
-    //       todoEl.remove();
-    //       updateLS();
-    //     });
-
-    //     todosUL.appendChild(todoEl);
-
-    //     input.value = "";
-
-    //     updateLS();
-    //   }
-    // }
-
-    // function updateLS() {
-    //   todosEl = document.querySelectorAll("li");
-
-    //   const todos = [];
-
-    //   todosEl.forEach((todoEl) => {
-    //     todos.push({
-    //       text: todoEl.innerText,
-    //       completed: todoEl.classList.contains("completed"),
-    //     });
-    //   });
-
-    //   localStorage.setItem("todos", JSON.stringify(todos));
-    // }
-  </script>
 </body>
 
 </html>

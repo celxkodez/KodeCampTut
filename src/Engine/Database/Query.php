@@ -18,6 +18,11 @@ class Query
     //do find
   }
 
+  public function getDbConnection()
+  {
+    return $this->connection;
+  }
+
   public function execute($query)
   {
     // die(var_dump($this->connection));
