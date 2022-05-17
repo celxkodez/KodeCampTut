@@ -7,8 +7,11 @@ use App\Classes\Todo;
 use App\Database\Query;
 
 $todo = new Todo();
-$todos = $todo->getTodos();
+//$todos = $todo->getTodos();
 $query = new Query();
+$todos = $query->query("SELECT * FROM todos");
+//$todos =
+//die(var_dump($todos));
 
 if (isset($_POST) && count($_POST) > 0) {
   $errors = [];
@@ -23,7 +26,8 @@ if (isset($_POST) && count($_POST) > 0) {
 
   if (count($errors) < 1) {
     $query->execute("INSERT INTO todos (title) VALUES('{$_POST['title']}')");
-    // new Todo($_POST);
+
+    header("Location: /");
   }
 
   // die(var_dump($errors));
@@ -132,16 +136,46 @@ if (isset($_POST) && count($_POST) > 0) {
     <input type="text" name="title" class="input" id="input" placeholder="Enter your todo" autocomplete="off">
     <button type="submit" class="add-button">Add New</button>
 
-    <ul class="todos" id="todos">
-      <?php foreach ($todos as $todo) : ?>
+      <ul class="todos" id="todos">
+          <?php foreach ($todos as $todo) : ?>
 
-        <li class="completed">
-          <a href="/markcompleted.php?id=<?= $todo->id ?>">
-            <?= $todo->title ?>
-          </a>
-        </li>
-      <?php endforeach; ?>
-    </ul>
+              <?php if($todo['completed']) : ?>
+                  <li class="completed">
+                      <div style="height: 3em">
+                          <?= $todo['title'] ?>
+
+                          <div style="float: right; margin-bottom: 0.5em;">
+
+                              <a style="border-color-color: rgba(252,134,1,0.98) display: block; border: solid; padding: 0em 0.2em;"
+                                 href="/deletetodo.php?id=<?= $todo['id'] ?>"
+                              >
+                                  delete
+                              </a>
+                          </div>
+                      </div>
+                  </li>
+              <?php else : ?>
+                  <li >
+                      <div style="height: 3em">
+                          <?= $todo['title'] ?>
+
+                          <div style="float: right; margin-bottom: 0.5em;">
+                              <a style="display: block; border: solid; padding: 0em 0.2em; margin: 0.2em 0em"
+                                 href="/markcompleted.php?id=<?= $todo['id'] ?>"
+                              >
+                                  completed
+                              </a>
+                              <a style="border-color-color: rgba(252,134,1,0.98) display: block; border: solid; padding: 0em 0.2em;"
+                                 href="/deletetodo.php?id=<?= $todo['id'] ?>"
+                              >
+                                  delete
+                              </a>
+                          </div>
+                      </div>
+                  </li>
+              <?php endif; ?>
+          <?php endforeach; ?>
+      </ul>
   </form>
   <!-- <small>Left click to toggle completed <br> Right click to delete todo</small> -->
 

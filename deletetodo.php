@@ -7,6 +7,6 @@ if (isset($_GET['id'])) {
 
     $query = new Query();
 
-    $query->execute("UPDATE todos SET completed = 1 where id = {$_GET['id']}");
+    $query->execute("DELETE FROM todos where id = {$_GET['id']}");
 }
 header("Location: /");

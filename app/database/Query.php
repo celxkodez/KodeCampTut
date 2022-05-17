@@ -10,7 +10,7 @@ class Query
 
   public function __construct()
   {
-    $connection = new Connection('mysql', 'localhost', 'kodecamp_php', 'root', '1111');
+    $connection = new Connection('mysql', 'localhost', 'kodecamp_php', 'root', '');
 
     $this->connection = $connection->getConnection();
   }
@@ -26,8 +26,17 @@ class Query
     $this->connection->exec($query);
   }
 
-  public function __destruct()
+    public function query($query)
+    {
+    // die(var_dump($this->connection));
+        $query = $this->connection->query($query);
+        $result = $query->fetchAll();
+        return $result;
+    }
+
+
+    public function __destruct()
   {
-    $this->connection->close();
+//    $this->connection->close();
   }
 }
