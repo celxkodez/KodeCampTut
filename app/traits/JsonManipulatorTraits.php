@@ -24,6 +24,23 @@ trait JsonManipulatorTrait
     }
   }
 
+  public function edit($id, array $data, $table = "todos")
+  {
+//      $todos = $this->getTodos();
+//
+//      $todo = array_filter($todos, function ($item) use ($todoId) {
+//          return $item->id == $todoId;
+//      });
+//
+//      $alltodos = array_filter($todos, function ($item) use ($todoId) {
+//          return $item->id != $todoId;
+//      });
+//
+//
+//      $todo = current($todo);
+
+  }
+
   public function get($table)
   {
     try {

@@ -21,6 +21,8 @@ if (isset($_POST) && count($_POST) > 0) {
 
   if (count($errors) < 1) {
     new Todo($_POST);
+
+    header("Location: /");
   }
 
   // die(var_dump($errors));
@@ -132,11 +134,41 @@ if (isset($_POST) && count($_POST) > 0) {
     <ul class="todos" id="todos">
       <?php foreach ($todos as $todo) : ?>
 
-        <li class="completed">
-          <a href="/markcompleted.php?id=<?= $todo->id ?>">
-            <?= $todo->title ?>
-          </a>
+        <?php if($todo->completed) : ?>
+            <li class="completed">
+            <div style="height: 3em">
+                <?= $todo->title ?>
+
+                <div style="float: right; margin-bottom: 0.5em;">
+                    
+                    <a style="border-color-color: rgba(252,134,1,0.98) display: block; border: solid; padding: 0em 0.2em;"
+                       href="/deletetodo.php?id=<?= $todo->id ?>"
+                    >
+                        delete
+                    </a>
+                </div>
+            </div>
         </li>
+          <?php else : ?>
+              <li >
+                  <div style="height: 3em">
+                      <?= $todo->title ?>
+
+                      <div style="float: right; margin-bottom: 0.5em;">
+                          <a style="display: block; border: solid; padding: 0em 0.2em; margin: 0.2em 0em"
+                             href="/markcompleted.php?id=<?= $todo->id ?>"
+                          >
+                              completed
+                          </a>
+                          <a style="border-color-color: rgba(252,134,1,0.98) display: block; border: solid; padding: 0em 0.2em;"
+                             href="/deletetodo.php?id=<?= $todo->id ?>"
+                          >
+                              delete
+                          </a>
+                      </div>
+                  </div>
+              </li>
+        <?php endif; ?>
       <?php endforeach; ?>
     </ul>
   </form>

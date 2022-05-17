@@ -38,16 +38,71 @@ abstract class TodoListManager
     return $this->get('todos');
   }
 
-  public function mark($todoId, $value)
+  public function mark($todoId, bool $value)
   {
-    $todos = $this->getTodos();
-    $todo = array_filter($todos, function ($item) use ($todoId) {
-      return $item->id = $todoId;
-    });
+      try {
+          $todos = $this->getTodos();
+          $todo = array_filter($todos, function ($item) use ($todoId) {
+              return $item->id == $todoId;
+          });
+
+          $todo = current($todo);
+
+          $existingItems = array_filter($todos, function ($item) use ($todoId) {
+              return $item->id != $todoId;
+          });
+
+          $existingItems = array_map(function($item){
+              return [
+                  'id' => $item->id,
+                  'title' => $item->title,
+                  'completed' => $item->completed,
+              ];
+          }, $existingItems);
+
+          $todo->completed = $value;
+          $todo = [
+              'id' => $todo->id,
+              'title' => $todo->title,
+              'completed' => $todo->completed,
+          ];
+
+          $existingItems[] = $todo;
+
+          $data = [
+              'todos' => array_values($existingItems)
+          ];
+
+          return file_put_contents("resources/json/todolist.json", json_encode($data));
+      }catch (\Exception $e) {
+          die($e->getMessage());
+      }
   }
 
   public function deleteTodo($id)
   {
-    //
+      try {
+          $todos = $this->getTodos();
+
+          $existingItems = array_filter($todos, function ($item) use ($id) {
+              return $item->id != $id;
+          });
+
+          $existingItems = array_map(function($item){
+              return [
+                  'id' => $item->id,
+                  'title' => $item->title,
+                  'completed' => $item->completed,
+              ];
+          }, $existingItems);
+
+          $data = [
+              'todos' => array_values($existingItems)
+          ];
+
+          return file_put_contents("resources/json/todolist.json", json_encode($data));
+      }catch (\Exception $e) {
+          die($e->getMessage());
+      }
   }
 }
